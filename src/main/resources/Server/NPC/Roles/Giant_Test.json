@@ -1,0 +1,44 @@
+{
+  "$Comment": "Spike test giant role - simple wandering behavior using the Golem_Crystal model at 5x scale.",
+  "Type": "Generic",
+  "Appearance": "Giant_Test",
+  "MaxHealth": 500,
+  "KnockbackScale": 0,
+  "DefaultPlayerAttitude": "Neutral",
+  "DefaultNPCAttitude": "Neutral",
+  "MotionControllerList": [
+    {
+      "Type": "Walk",
+      "MaxWalkSpeed": 2,
+      "Gravity": 20,
+      "MaxFallSpeed": 10,
+      "Acceleration": 3
+    }
+  ],
+  "Instructions": [
+    {
+      "Instructions": [
+        {
+          "Sensor": {
+            "Type": "Any"
+          },
+          "BodyMotion": {
+            "Type": "WanderInCircle",
+            "Radius": 20,
+            "MaxHeadingChange": 30,
+            "RelativeSpeed": 0.4,
+            "MinWalkTime": 2
+          },
+          "Actions": [
+            {
+              "Type": "PlayAnimation",
+              "Slot": "Status",
+              "AnimationId": "NPC/Elemental/Golem_Crystal/Animations/Default/Walk"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "NameTranslationKey": "server.npcRoles.Giant_Test.name"
+}

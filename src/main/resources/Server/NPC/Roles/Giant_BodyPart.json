@@ -1,0 +1,31 @@
+{
+  "$Comment": "Invisible collision entity for giant body parts. Position is controlled by GiantBodyPartUpdateSystem each tick.",
+  "Type": "Generic",
+  "Appearance": "NPC_Path_Marker",
+  "MaxHealth": 999999,
+  "KnockbackScale": 0,
+  "MotionControllerList": [
+    {
+      "Type": "Walk",
+      "MaxWalkSpeed": 3,
+      "Gravity": 10,
+      "MaxFallSpeed": 8,
+      "Acceleration": 10
+    }
+  ],
+  "Instructions": [
+    {
+      "Instructions": [
+        {
+          "Sensor": {
+            "Type": "Any"
+          },
+          "BodyMotion": {
+            "Type": "Nothing"
+          }
+        }
+      ]
+    }
+  ],
+  "NameTranslationKey": "server.npcRoles.Giant_BodyPart.name"
+}
