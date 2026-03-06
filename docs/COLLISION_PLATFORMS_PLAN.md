@@ -183,6 +183,7 @@ Building is left as a follow-up; the rest of this plan focuses on **collision** 
 
 ## 8. Open Points / Future Work
 
+- **Body part motion controller:** The body part NPC uses a motion controller for movement. With **Walk**, the engine applies gravity so the **NPC model** falls while our systems keep the **collision box** (TransformComponent) correct — the rider then appears to fall because they are drawn attached to the falling model. Using **Idle** in the role’s `MotionControllerList` (no gravity) avoids this. If the engine does not support Idle or it behaves poorly, alternatives are: (1) use the smallest valid Walk values (e.g. Gravity 0.01) so fall is negligible, or (2) implement a **custom motion controller** (e.g. “Platform” or “Kinematic”) that applies no movement and is driven only by our systems (position bound to the platform AABB). Custom controllers require the engine to support registration of additional motion controller types.
 - Exact **system order** and **dependencies** (before/after **ProcessPlayerInput**, **HandleMountInput**, **TransformSystems**, etc.) so platform carry and optional mount behaviour don’t conflict.
 - **Intangible** or **Invulnerable** flags on body-part entities so they don’t interact with combat/knockback in unwanted ways while still colliding or being detected.
 - **Multiple players** on the same or different body parts; **NPCs** or other entities as riders; **dismount** when the giant dies or the part is removed.

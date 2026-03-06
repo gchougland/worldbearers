@@ -12,6 +12,8 @@ import com.hypixel.hytale.server.core.modules.entity.component.TransformComponen
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Store-level ticking system that runs once per server tick to update
@@ -35,8 +37,16 @@ public class GiantBodyPartUpdateSystem extends TickingSystem<EntityStore> {
 
     @Override
     public void tick(float dt, int systemIndex, @Nonnull Store<EntityStore> store) {
+        List<GiantInstance> toRemove = null;
         for (GiantInstance instance : giantManager.getActiveGiants()) {
             if (!instance.isActive()) continue;
+
+            // Skip if main entity was removed (e.g. chunk unload on player disconnect)
+            if (!instance.getMainEntityRef().isValid()) {
+                if (toRemove == null) toRemove = new ArrayList<>();
+                toRemove.add(instance);
+                continue;
+            }
 
             // Read the giant's current transform
             TransformComponent mainTransform = store.getComponent(
@@ -58,6 +68,12 @@ public class GiantBodyPartUpdateSystem extends TickingSystem<EntityStore> {
 
                 Vector3d newPos = part.computeWorldPosition(giantPos, headingRad);
                 partTransform.getPosition().assign(newPos);
+            }
+        }
+        if (toRemove != null) {
+            for (GiantInstance instance : toRemove) {
+                LOGGER.atInfo().log("Giant main entity invalid, removing giant (body parts may have unloaded)");
+                giantManager.removeGiant(instance, store);
             }
         }
     }

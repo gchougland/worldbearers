@@ -1,16 +1,12 @@
 {
-  "$Comment": "Invisible collision entity for giant body parts. Position is controlled by GiantBodyPartUpdateSystem each tick.",
+  "$Comment": "Invisible collision entity for giant body parts. Position is controlled by GiantBodyPartUpdateSystem each tick. Platform motion controller: no gravity, no movement (position driven by our systems).",
   "Type": "Generic",
   "Appearance": "NPC_Path_Marker",
   "MaxHealth": 999999,
   "KnockbackScale": 0,
   "MotionControllerList": [
     {
-      "Type": "Walk",
-      "MaxWalkSpeed": 3,
-      "Gravity": 10,
-      "MaxFallSpeed": 8,
-      "Acceleration": 10
+      "Type": "Platform"
     }
   ],
   "Instructions": [
